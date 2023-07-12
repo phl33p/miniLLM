@@ -155,7 +155,8 @@ class trainbase:
             eval_dataset=eval_dataset
         )
         trainer.train()
-        trainer.save_model()
+        trainer.save_model("./outputmodel/")
+        tokenizer.save_pretrained("./outputmodel/")
 
 
 class bart_text_Generation:
@@ -261,7 +262,7 @@ class finetune():
             eval_dataset=test_dataset,
             data_collator=self.custom_data_collator,
         )
-        trainer = finetune()
+        trainer.train()
         trainer.fine_tune_model()
 
         
