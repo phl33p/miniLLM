@@ -263,7 +263,8 @@ class finetune():
             data_collator=self.custom_data_collator,
         )
         trainer.train()
-        trainer.fine_tune_model()
+        trainer.save_model("./outputmodelstage2/")
+        tokenizer.save_pretrained("./outputmodelstage2/")
 
         
     def custom_data_collator(self, features):
@@ -285,14 +286,14 @@ class finetune():
         return total_loss
 
 class BERTQA:
-    def __init__(self, model_name):
+    def __init__(self):
         # Load the tokenizer and fine-tuned model
-        tokenizer = BartTokenizer.from_pretrained('bart-base')
-        model = BartForConditionalGeneration.from_pretrained('./resultsqa')
+        tokenizer = BartTokenizer.from_pretrained("./outputmodelstage2/")
+        model = BartForConditionalGeneration.from_pretrained("./outputmodelstage2/")
 
         # Answer a question
-        question = "Insert a question here"
-        context = "Insert context here"
+        question = "What is the Design Criteria for Bridges and Other structures"
+        context = ""
         inputs = tokenizer(question + ' ' + context, return_tensors='pt')
         outputs = model.generate(inputs.input_ids)
         answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
