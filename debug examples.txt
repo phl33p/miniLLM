@@ -1,0 +1,3 @@
+print(f"Number of training examples: {num_examples}")
+
+print(f"Shape of input_ids: {input_ids.shape}")
